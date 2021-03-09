@@ -57,6 +57,8 @@ module.exports = (sequelize,DataTypes) => {
 
         model.hasMany(models.Invoice, {
             foreignKey: 'pid',
+            onDelete: 'CASCADE',
+
         });
     }
 

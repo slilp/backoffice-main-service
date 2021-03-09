@@ -83,9 +83,21 @@ async function update(id, request) {
     return update;
 }
 
+async function deleteItem(id) {
+
+    const response = await db.Purchase.destroy({
+        where: {
+            pid: id
+        }
+    })
+
+    return response;
+}
+
 module.exports = {
     insert,
     search,
     getById,
-    update
+    update,
+    deleteItem
 }

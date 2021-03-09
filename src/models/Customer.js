@@ -56,7 +56,8 @@ module.exports = (sequelize, DataTypes) => {
 
     model.associate = models => {
         model.hasMany(models.Purchase, {
-            foreignKey: 'cid'
+            foreignKey: 'cid',
+            onDelete: 'CASCADE',
         });
     }
 
