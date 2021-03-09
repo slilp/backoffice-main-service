@@ -98,10 +98,22 @@ async function deleteItem(id) {
     return response;
 }
 
+async function sumStatus(status){
+    console.log('ffsdf');
+    const response = await db.Invoice.sum('amount',{
+        where: {
+            status : status
+        }
+    })
+
+    return response;
+}
+
 module.exports = {
     insert,
     search,
     getById,
     update,
-    deleteItem
+    deleteItem,
+    sumStatus
 }

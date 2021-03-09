@@ -109,9 +109,34 @@ async function deleteInvoiceTrans(req, res) {
     }
 }
 
+
+async function invoiceSum(req, res) {
+
+    try {
+
+        const query = await invoiceService.sumStatus(req.params.status);
+
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: query
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
+
 module.exports = {
     insertInvoice,
     searchInvoiceTrans,
     updateInvoiceTrans,
-    deleteInvoiceTrans
+    deleteInvoiceTrans,
+    invoiceSum
 }
