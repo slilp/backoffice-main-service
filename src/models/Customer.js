@@ -17,15 +17,29 @@ module.exports = (sequelize, DataTypes) => {
             email: {
                 type: DataTypes.STRING(100)
             },
-            location: {
-                type: DataTypes.STRING(1000)
+            billToLocationId: {
+                type: DataTypes.BIGINT,
+                field: 'bill_to_location_id'
+            },
+            billToLocation: {
+                type: DataTypes.STRING(1000),
+                field: 'bill_to_location'
+            },
+            shipToLocationId: {
+                type: DataTypes.BIGINT,
+                field: 'ship_to_location_id'
+            },
+            shipToLocation: {
+                type: DataTypes.STRING(1000),
+                field: 'ship_to_location'
+            },
+            deliveryLocationId: {
+                type: DataTypes.BIGINT,
+                field: 'delivery_location_id'
             },
             deliveryLocation: {
                 type: DataTypes.STRING(1000),
                 field: 'delivery_location'
-            },
-            zone: {
-                type: DataTypes.STRING(50)
             },
             createdDate: {
                 type: DataTypes.DATE,
@@ -59,6 +73,22 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'cid',
             onDelete: 'CASCADE',
         });
+
+        model.belongsTo(models.Address, {
+            as:'billja',
+            foreignKey: 'bill_to_location_id'
+        });
+
+        model.belongsTo(models.Address, {
+            as:'deliveryja',
+            foreignKey: 'delivery_location_id'
+        });
+
+        model.belongsTo(models.Address, {
+            as:'shipja',
+            foreignKey: 'ship_to_location_id'
+        });
+
     }
 
     return model;

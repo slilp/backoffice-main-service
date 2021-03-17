@@ -25,7 +25,10 @@ async function search(request, index, size) {
         },
         attributes: [
             'pid',
-            'transportType'
+            'transportType',
+            'revenue',
+            'transportLocation',
+            'sale'
         ],
         include: {
             model: db.Customer,
@@ -36,8 +39,8 @@ async function search(request, index, size) {
                 }
             } : {},
             attributes: [
+                'cid',
                 'name',
-                'deliveryLocation',
                 'location'
             ],
         },
@@ -62,7 +65,6 @@ async function getById(id) {
 
 async function update(id, request) {
 
-    console.log(id);
     const query = await db.Purchase.findOne({
         where: {
             pid: id

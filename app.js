@@ -16,9 +16,9 @@ app.use(helmet());
 const port = process.env.PORT || 3000;
 
 
-// app.get('/handcheck',(req,res)=>{
-//     res.json({status:true});
-// });
+app.get('/handcheck',(req,res)=>{
+    res.json({status:true});
+});
 
 
 app.use('/api',routes);
