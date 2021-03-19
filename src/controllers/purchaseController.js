@@ -32,10 +32,20 @@ async function searchPurchaseTrans(req, res) {
                 name: req.query.name,
                 pid: req.query.pid,
                 transportType: req.query.transportType,
+                status : req.query.status
             },
             req.params.index,
             req.params.size
         );
+
+        if(query.count == 0){
+            return res.status(404).json({
+                status: false,
+                statusCode: 'PFAR-404',
+                message: 'not found data',
+                data: query
+            });
+        }
 
         return res.json({
             status: true,
@@ -75,6 +85,37 @@ async function updatePurchaseTrans(req, res) {
     }
 }
 
+
+async function getPurchaseById(req, res) {
+
+    try {
+        const query = await purchaseService.getInfoById(req.params.pid);
+
+        if(!query){
+            return res.status(404).json({
+                status: false,
+                statusCode: 'PFAR-404',
+                message: 'not found data',
+            });
+        }
+
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: query
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
+
 async function deletePurchaseTrans(req, res) {
 
     try {
@@ -110,5 +151,6 @@ module.exports = {
     insertNewPurchase,
     searchPurchaseTrans,
     updatePurchaseTrans,
-    deletePurchaseTrans
+    deletePurchaseTrans,
+    getPurchaseById
 }

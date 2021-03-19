@@ -4,6 +4,7 @@ const purchaseController = require('../controllers/purchaseController');
 
 router.post('/add', purchaseController.insertNewPurchase);
 router.get('/search/:index/:size', purchaseController.searchPurchaseTrans);
+router.get('/info/:pid', purchaseController.getPurchaseById);
 router.put('/update/:pid', purchaseController.updatePurchaseTrans);
 router.delete('/delete/:pid', purchaseController.deletePurchaseTrans);
 

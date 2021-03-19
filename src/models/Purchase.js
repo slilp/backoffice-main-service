@@ -32,6 +32,10 @@ module.exports = (sequelize,DataTypes) => {
             note:{
                 type:DataTypes.STRING(250)
             },
+            status:{
+                type:DataTypes.STRING(50),
+                defaultValue: 'waiting'
+            },
             createdDate: {
                 type: DataTypes.DATE,
                 defaultValue: new Date(),

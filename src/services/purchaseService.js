@@ -14,12 +14,15 @@ async function search(request, index, size) {
 
     const query = await db.Purchase.findAndCountAll({
         where: {
-            [Op.and] : [
+            [Op.and]: [
                 request.pid ? {
                     pid: request.pid.trim()
-                } : {} ,
+                } : {},
                 request.transportType ? {
                     transportType: request.transportType.trim()
+                } : {},
+                request.status ? {
+                    status: request.status.trim()
                 } : {},
             ]
         },
@@ -27,7 +30,8 @@ async function search(request, index, size) {
             'pid',
             'transportType',
             'revenue',
-            'transportLocation'
+            'transportLocation',
+            'status'
         ],
         include: [{
             model: db.Customer,
@@ -39,11 +43,16 @@ async function search(request, index, size) {
             } : {},
             attributes: [
                 'cid',
-                'name'
+                'name',
+                'shipToLocation'
             ],
-        },{
+            include: {
+                model: db.Address,
+                as: 'shipTo'
+            }
+        }, {
             model: db.Address,
-            as:'transportInfo'
+            as: 'transportInfo'
         }],
         offset: size * index,
         limit: size * 1,
@@ -60,6 +69,34 @@ async function search(request, index, size) {
 async function getById(id) {
 
     const query = await db.Purchase.findById(id);
+
+    return query;
+}
+
+
+async function getInfoById(id) {
+
+    const query = await db.Purchase.findOne({
+        where : {
+            pid : id
+        },
+        include : [{
+            model: db.Customer,
+            as: 'customerInfo',
+            attributes: [
+                'cid',
+                'name',
+                'shipToLocation'
+            ],
+            include: {
+                model: db.Address,
+                as: 'shipTo'
+            }
+        }, {
+            model: db.Address,
+            as: 'transportInfo'
+        }],
+    });
 
     return query;
 }
@@ -103,5 +140,6 @@ module.exports = {
     search,
     getById,
     update,
-    deleteItem
+    deleteItem,
+    getInfoById
 }
