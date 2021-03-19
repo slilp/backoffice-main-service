@@ -9,18 +9,25 @@ module.exports = (sequelize,DataTypes) => {
                 type:DataTypes.DECIMAL(14,4),
                 defaultValue:0
             },
-            sale:{
-                type:DataTypes.STRING(250)
+            sid:{
+                type: DataTypes.BIGINT
             },
             transportType:{
                 type:DataTypes.STRING(50),
-                defaultValue: 'self'
+                defaultValue: 'self',
+                field: 'transport_type'
             },
             transportName:{
-                type:DataTypes.STRING(250)
+                type:DataTypes.STRING(250),
+                field: 'transport_name'
             },  
+            transportLocationId:{
+                type: DataTypes.BIGINT,
+                field: 'transport_location_id'
+            },
             transportLocation:{
-                type:DataTypes.STRING(1000)
+                type:DataTypes.STRING(1000),
+                field: 'transport_location'
             },
             note:{
                 type:DataTypes.STRING(250)
@@ -60,6 +67,18 @@ module.exports = (sequelize,DataTypes) => {
             onDelete: 'CASCADE',
 
         });
+
+        model.belongsTo(models.Sale, {
+            foreignKey: 'sid',
+            onDelete: 'CASCADE',
+            as:'saleInfo'
+        });
+
+        model.belongsTo(models.Address, {
+            as:'transportInfo',
+            foreignKey: 'transport_location_id'
+        });
+        
     }
 
     return model;

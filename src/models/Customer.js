@@ -75,17 +75,17 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         model.belongsTo(models.Address, {
-            as:'billja',
+            as:'billTo',
             foreignKey: 'bill_to_location_id'
         });
 
         model.belongsTo(models.Address, {
-            as:'deliveryja',
+            as:'deliveryTo',
             foreignKey: 'delivery_location_id'
         });
 
         model.belongsTo(models.Address, {
-            as:'shipja',
+            as:'shipTo',
             foreignKey: 'ship_to_location_id'
         });
 

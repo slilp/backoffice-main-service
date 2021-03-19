@@ -27,10 +27,9 @@ async function search(request, index, size) {
             'pid',
             'transportType',
             'revenue',
-            'transportLocation',
-            'sale'
+            'transportLocation'
         ],
-        include: {
+        include: [{
             model: db.Customer,
             as: 'customerInfo',
             where: request.name ? {
@@ -40,10 +39,12 @@ async function search(request, index, size) {
             } : {},
             attributes: [
                 'cid',
-                'name',
-                'location'
+                'name'
             ],
-        },
+        },{
+            model: db.Address,
+            as:'transportInfo'
+        }],
         offset: size * index,
         limit: size * 1,
         order: [
@@ -73,9 +74,10 @@ async function update(id, request) {
 
     const update = await query.update({
         revenue: request.revenue,
-        sale: request.sale,
+        sid: request.sale,
         transportType: request.transportType,
         transportName: request.transportName,
+        transportLocationId: request.transportLocationId,
         transportLocation: request.transportLocation,
         note: request.note,
         updatedDate: new Date(),

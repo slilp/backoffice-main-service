@@ -56,7 +56,7 @@ async function searchCustomer(req, res) {
 async function getCustomerById(req, res) {
 
     try {
-        const query = await customerService.getById(req.params.cid);
+        const query = await customerService.getInfoById(req.params.cid);
 
         if(!query){
             return res.status(404).json({

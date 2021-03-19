@@ -39,7 +39,7 @@ module.exports = (sequelize,DataTypes) => {
             }
         },{
             tableName : 'invoice',
-            timestamp:false
+            timestamps: false
         }
     );
 

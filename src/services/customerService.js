@@ -11,7 +11,7 @@ async function insert(request) {
 
 async function search(request, index, size) {
 
-    const query = await db.Customer.findAll({
+    const query = await db.Customer.findAndCountAll({
         where: {
             [Op.and]: [
                 request.cid ? {
@@ -39,18 +39,10 @@ async function search(request, index, size) {
             'billToLocation',
             'tel'
         ],
-        include:[{
+        include:{
             model: db.Address,
-            as:'billja'
-        },
-        {
-            model: db.Address,
-            as:'deliveryja'
-        },
-        {
-            model: db.Address,
-            as:'shipja'
-        }]
+            as:'billTo'
+        }
     });
 
     return query;
@@ -62,6 +54,31 @@ async function getById(id) {
         where:{
             cid:id
         }
+    });
+
+    return query;
+}
+
+async function getInfoById(id) {
+
+    const query = await db.Customer.findOne({
+        where:{
+            cid:id
+        },
+        include:[
+            {
+                model: db.Address,
+                as:'billTo'
+            },
+            {
+                model: db.Address,
+                as:'shipTo'
+            },
+            {
+                model: db.Address,
+                as:'deliveryTo'
+            }
+        ]
     });
 
     return query;
@@ -110,5 +127,6 @@ module.exports = {
     search,
     getById,
     update,
-    deleteItem
+    deleteItem,
+    getInfoById
 }

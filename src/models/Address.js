@@ -26,20 +26,24 @@ module.exports = (sequelize , DataTypes) => {
 
     model.associate = models => {
         model.hasMany(models.Customer, {
-            as:'billja',
+            as:'billTo',
             foreignKey: 'bill_to_location_id'
         });
-    
+
         model.hasMany(models.Customer, {
-            as:'deliveryja',
+            as:'deliveryTo',
             foreignKey: 'delivery_location_id'
         });
-    
+
         model.hasMany(models.Customer, {
-            as:'shipja',
+            as:'shipTo',
             foreignKey: 'ship_to_location_id'
         });
-    
+
+        model.hasMany(models.Purchase, {
+            as:'transportInfo',
+            foreignKey: 'transport_location_id'
+        });
 
     }
 

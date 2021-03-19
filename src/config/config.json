@@ -4,7 +4,10 @@
     "password": "Winteriscoming7412369850",
     "database": "pfarthai_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "define": {
+      "timestamps": false
+    }
   },
   "test": {
     "username": "root",
