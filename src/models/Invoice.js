@@ -36,6 +36,9 @@ module.exports = (sequelize,DataTypes) => {
             updated_by: {
                 type: DataTypes.STRING(50),
                 field: 'updated_by'
+            },
+            pid:{
+                type:DataTypes.STRING(50)
             }
         },{
             tableName : 'invoice',

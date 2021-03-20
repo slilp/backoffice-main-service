@@ -1,11 +1,17 @@
 const invoiceService = require('../services/invoiceService');
-
+const purchaseService = require('../services/purchaseService');
 
 async function insertInvoice(req, res) {
 
     try {
 
         const insert = await invoiceService.insert(req.body);
+
+        const balance = await purchaseService.purchaseBalance(req.body.pid);
+
+        if(balance === 0){
+            const update = await  purchaseService.updateCompleteStatus(req.body.pid);
+        }
 
         return res.json({
             status: true,

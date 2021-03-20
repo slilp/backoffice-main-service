@@ -42,7 +42,8 @@ async function search(request, index, size) {
             include: {
                 model: db.Customer,
                 attributes: [
-                    'name'
+                    'name',
+                    'cid'
                 ],
                 as: 'customerInfo'
             }
@@ -99,7 +100,6 @@ async function deleteItem(id) {
 }
 
 async function sumStatus(status){
-    console.log('ffsdf');
     const response = await db.Invoice.sum('amount',{
         where: {
             status : status
@@ -108,6 +108,7 @@ async function sumStatus(status){
 
     return response;
 }
+
 
 module.exports = {
     insert,

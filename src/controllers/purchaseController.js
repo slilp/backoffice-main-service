@@ -63,6 +63,68 @@ async function searchPurchaseTrans(req, res) {
     }
 }
 
+
+async function searchWaitingPurchaseTrans(req, res) {
+
+    try {
+
+        const query = await purchaseService.searchWaitingTrans({
+                name: req.query.name,
+                pid: req.query.pid
+       },
+            req.params.index,
+            req.params.size
+        );
+
+        if(query.count == 0){
+            return res.status(404).json({
+                status: false,
+                statusCode: 'PFAR-404',
+                message: 'not found data',
+                data: query
+            });
+        }
+
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: query
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
+async function getPurchaseBalance(req, res) {
+
+    try {
+
+        const query = await purchaseService.purchaseBalance(req.params.pid);
+
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: query
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
+
+
 async function updatePurchaseTrans(req, res) {
 
     try {
@@ -152,5 +214,7 @@ module.exports = {
     searchPurchaseTrans,
     updatePurchaseTrans,
     deletePurchaseTrans,
-    getPurchaseById
+    getPurchaseById,
+    searchWaitingPurchaseTrans,
+    getPurchaseBalance
 }
