@@ -61,6 +61,39 @@ async function searchInvoiceTrans(req, res) {
     }
 }
 
+async function getInvoiceInfo(req, res) {
+
+    try {
+
+        const query = await invoiceService.getInfo(req.params.inv);
+
+        if(query){
+            return res.json({
+                status: true,
+                statusCode: 'PFAR-200',
+                message: 'success',
+                data: query
+            });
+        }
+
+        return res.status(404).json({
+            status: true,
+            statusCode: 'PFAR-404',
+            message: 'not found data',
+            data: query
+        });
+
+       
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
 async function updateInvoiceTrans(req, res) {
 
     try {
@@ -144,5 +177,6 @@ module.exports = {
     searchInvoiceTrans,
     updateInvoiceTrans,
     deleteInvoiceTrans,
-    invoiceSum
+    invoiceSum,
+    getInvoiceInfo
 }

@@ -67,6 +67,41 @@ async function getById(id) {
     return query;
 }
 
+
+async function getInfo(id){
+    const query = await db.Invoice.findOne({
+        where: {
+            inv: id.trim()
+        },
+        attributes: [
+            'inv',
+            'pid',
+            'invoiceDate',
+            'amount',
+            'status',
+            'channel'
+        ],
+        include: {
+            model: db.Purchase,
+            as: 'purchaseInfo',
+            attributes: [
+                'pid'
+            ],
+            include: {
+                model: db.Customer,
+                attributes: [
+                    'name',
+                    'cid'
+                ],
+                as: 'customerInfo'
+            }
+        }
+    });
+
+    return query;
+}
+
+
 async function update(id, request) {
 
     const query = await db.Invoice.findOne({
@@ -79,7 +114,9 @@ async function update(id, request) {
         amount: request.amount,
         status: request.status,
         invoiceDate: request.invoiceDate,
+        channel:request.channel,
         pid: request.pid,
+        images: request.images,
         updatedDate: new Date(),
         updatedBy: request.updatedBy
     });
@@ -89,10 +126,9 @@ async function update(id, request) {
 
 
 async function deleteItem(id) {
-
     const response = await db.Invoice.destroy({
         where: {
-            inv: id
+            inv: id.trim()
         }
     })
 
@@ -116,5 +152,6 @@ module.exports = {
     getById,
     update,
     deleteItem,
-    sumStatus
+    sumStatus,
+    getInfo
 }

@@ -16,6 +16,9 @@ module.exports = (sequelize,DataTypes) => {
             channel:{
                 type:DataTypes.STRING(25)
             },
+            images:{
+                type:DataTypes.STRING(3000)
+            },
             status:{
                 type:DataTypes.STRING(30),
                 defaultValue:'waiting'
