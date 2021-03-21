@@ -209,6 +209,28 @@ async function deletePurchaseTrans(req, res) {
     }
 }
 
+async function countPurchaseByStatus(req, res) {
+
+    try {
+
+        const response = await purchaseService.countByStatus(req.params.status);
+        
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: response
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
     insertNewPurchase,
     searchPurchaseTrans,
@@ -216,5 +238,6 @@ module.exports = {
     deletePurchaseTrans,
     getPurchaseById,
     searchWaitingPurchaseTrans,
-    getPurchaseBalance
+    getPurchaseBalance,
+    countPurchaseByStatus
 }

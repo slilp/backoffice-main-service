@@ -213,6 +213,17 @@ async function updateCompleteStatus(id){
     return update;
 }
 
+async function countByStatus(status){
+    const response = await db.Purchase.count({
+        where: {
+            status : status
+        }
+    })
+
+    return response;
+}
+
+
 module.exports = {
     insert,
     search,
@@ -222,5 +233,6 @@ module.exports = {
     getInfoById,
     searchWaitingTrans,
     purchaseBalance,
-    updateCompleteStatus
+    updateCompleteStatus,
+    countByStatus
 }
