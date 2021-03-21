@@ -55,6 +55,12 @@ module.exports = (sequelize,DataTypes) => {
             onDelete: 'CASCADE',
             as : 'purchaseInfo'
         });
+
+        model.hasMany(models.Logistic, {
+            foreignKey: 'inv',
+            onDelete: 'CASCADE',
+        });
+        
     }
 
     return model;
