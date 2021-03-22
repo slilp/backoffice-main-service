@@ -15,20 +15,21 @@ async function search(request, index, size) {
     const query = await db.Logistic.findAndCountAll({
         where: {
             [Op.and]: [
-                request.lid ? {
-                    lid: request.lid.trim()
-                } : {},
                 request.status ? {
                     status: request.status.trim()
+                } : {},
+                request.tid ? {
+                    tid: request.tid
                 } : {},
             ]
         },
         attributes: [
             'lid',
             'deliveryDate',
-            'status'
+            'status',
+            'tid'
         ],
-        include: {
+        include:[{
             model: db.Invoice,
             as: 'invoiceInfo',
             where: {
@@ -66,7 +67,7 @@ async function search(request, index, size) {
                     as: 'transportInfo'
                 }]
             }
-        },
+        }],
         offset: size * index,
         limit: size * 1,
         order: [

@@ -7,11 +7,15 @@ module.exports = (sequelize,DataTypes) => {
         inv :{
             type:DataTypes.STRING(50)
         },
+        tid :{
+            type:DataTypes.BIGINT()
+        },
         deliveryDate:{
             type: DataTypes.DATE,
         },
         status : {
-            type : DataTypes.STRING(50)
+            type : DataTypes.STRING(50),
+            defaultValue : 'waiting'
         }
     },{
         tableName : 'logistic',

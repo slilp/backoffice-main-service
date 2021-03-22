@@ -30,6 +30,7 @@ async function searchLogisticTrans(req, res) {
         const query = await logisticService.search({
                 lid: req.query.lid,
                 inv : req.query.inv,
+                tid : req.query.tid,
                 status: req.query.status
             },
             req.params.index,
