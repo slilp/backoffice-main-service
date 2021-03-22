@@ -48,25 +48,25 @@ async function search(request, index, size) {
                 attributes: [
                     'pid',
                     'transportType',
-                    'transportLocation'
                 ],
                 include: [{
                     model: db.Customer,
                     as: 'customerInfo',
                     attributes: [
                         'cid',
-                        'name',
-                        'shipToLocation'
-                    ],
-                    include: {
-                        model: db.Address,
-                        as: 'shipTo'
-                    }
-                },{
-                    model: db.Address,
-                    as: 'transportInfo'
+                        'name'
+                    ]
                 }]
             }
+        },
+        {
+            model: db.Transporter,
+            as: 'transporterInfo',
+            attributes: [
+                'tid',
+                'firstName',
+                'lastName'
+            ]
         }],
         offset: size * index,
         limit: size * 1,
