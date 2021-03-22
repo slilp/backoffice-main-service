@@ -22,6 +22,27 @@ async function insertLogistic(req, res) {
     }
 }
 
+async function updateLogisticTrans(req, res) {
+
+    try {
+
+        const update = await logisticService.update(req.params.lid,req.body);
+
+        return res.json({
+            status: true,
+            statusCode: 'PFAR-200',
+            message: 'success',
+            data: update
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            statusCode: 'PFAR-500',
+            message: error.message
+        });
+    }
+}
 
 async function searchLogisticTrans(req, res) {
 
@@ -190,5 +211,6 @@ module.exports = {
     searchLogisticTrans,
     getLogisticInfo,
     deleteLogisticTrans,
-    countLogisticByStatus
+    countLogisticByStatus,
+    updateLogisticTrans
 }

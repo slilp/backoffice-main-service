@@ -1,14 +1,15 @@
 module.exports = (sequelize,DataTypes) => {
     const model = sequelize.define('Logistic',{
         lid:{
-            type: DataTypes.STRING(50),
+            type: DataTypes.BIGINT,
+            autoIncrement: true,
             primaryKey: true
         },
         inv :{
             type:DataTypes.STRING(50)
         },
         tid :{
-            type:DataTypes.BIGINT()
+            type: DataTypes.STRING(50),
         },
         deliveryDate:{
             type: DataTypes.DATE,

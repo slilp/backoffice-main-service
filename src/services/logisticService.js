@@ -137,28 +137,23 @@ async function getInfoById(id) {
     return query;
 }
 
-// async function update(id, request) {
+async function update(id, request) {
 
-//     const query = await db.Purchase.findOne({
-//         where: {
-//             pid: id
-//         }
-//     });
+    const query = await db.Logistic.findOne({
+        where: {
+            lid: id
+        }
+    });
 
-//     const update = await query.update({
-//         revenue: request.revenue,
-//         sid: request.sale,
-//         transportType: request.transportType,
-//         transportName: request.transportName,
-//         transportLocationId: request.transportLocationId,
-//         transportLocation: request.transportLocation,
-//         note: request.note,
-//         updatedDate: new Date(),
-//         updatedBy: request.updatedBy
-//     });
+    const update = await query.update({
+        deliveryDate : request.deliveryDate,
+        status: request.status,
+        updatedDate: new Date(),
+        updatedBy: request.updatedBy
+    });
 
-//     return update;
-// }
+    return update;
+}
 
 async function deleteItem(id) {
 
@@ -201,7 +196,7 @@ module.exports = {
     insert,
     search,
     getById,
-    // update,
+    update,
     deleteItem,
     getInfoById,
     // searchWaitingTrans,
