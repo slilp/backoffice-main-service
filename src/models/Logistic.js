@@ -30,10 +30,10 @@ module.exports = (sequelize,DataTypes) => {
             as:'transporterInfo'
         });
 
-        model.belongsTo(models.Invoice, {
-            foreignKey: 'inv',
+        model.belongsTo(models.Purchase, {
+            foreignKey: 'pid',
             onDelete: 'CASCADE',
-            as:'invoiceInfo'
+            as:'purchaseInfo'
         });
 
     }

@@ -7,12 +7,12 @@ const saleRoute = require('./saleRoute');
 const logisticRoute = require('./logisticRoute');
 const transporterRoute = require('./transporterRoute');
 
-router.use('/customer',customerRoute);
-router.use('/purchase',purchaseRoute);
-router.use('/invoice',invoiceRoute);
-router.use('/sale',saleRoute);
-router.use('/logistic',logisticRoute);
-router.use('/transporter',transporterRoute);
+router.use('/customer', customerRoute);
+router.use('/purchase', purchaseRoute);
+router.use('/invoice', invoiceRoute);
+router.use('/sale', saleRoute);
+router.use('/logistic', logisticRoute);
+router.use('/transporter', transporterRoute);
 
 
 module.exports = router;

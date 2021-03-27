@@ -14,10 +14,10 @@ async function search(request, index, size) {
 
     const query = await db.Invoice.findAndCountAll({
         where: {
-            [Op.and] : [
+            [Op.and]: [
                 request.inv ? {
                     inv: request.inv.trim()
-                } : {} ,
+                } : {},
                 request.status ? {
                     status: request.status.trim()
                 } : {},
@@ -33,9 +33,9 @@ async function search(request, index, size) {
         include: {
             model: db.Purchase,
             as: 'purchaseInfo',
-            where:  request.pid ? {
+            where: request.pid ? {
                 pid: request.pid.trim()
-            } : {} ,
+            } : {},
             attributes: [
                 'pid'
             ],
@@ -68,7 +68,7 @@ async function getById(id) {
 }
 
 
-async function getInfo(id){
+async function getInfo(id) {
     const query = await db.Invoice.findOne({
         where: {
             inv: id.trim()
@@ -114,7 +114,7 @@ async function update(id, request) {
         amount: request.amount,
         status: request.status,
         invoiceDate: request.invoiceDate,
-        channel:request.channel,
+        channel: request.channel,
         pid: request.pid,
         images: request.images,
         updatedDate: new Date(),
@@ -135,10 +135,10 @@ async function deleteItem(id) {
     return response;
 }
 
-async function sumStatus(status){
-    const response = await db.Invoice.sum('amount',{
+async function sumStatus(status) {
+    const response = await db.Invoice.sum('amount', {
         where: {
-            status : status
+            status: status
         }
     })
 

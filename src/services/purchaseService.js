@@ -78,7 +78,7 @@ async function searchWaitingTrans(request, index, size) {
                 } : {},
                 {
                     status: 'waiting'
-                } 
+                }
             ]
         },
         attributes: [
@@ -121,28 +121,30 @@ async function getById(id) {
 async function purchaseBalance(id) {
 
     const purchaseBalance = await db.Purchase.findOne({
-        where : {
-            pid : id
-        },attributes: [
+        where: {
+            pid: id
+        },
+        attributes: [
             'revenue',
-        ]});
+        ]
+    });
 
-    const sumBalance = await db.Invoice.sum('amount',{
-            where: {
-                pid :  id
-            }
+    const sumBalance = await db.Invoice.sum('amount', {
+        where: {
+            pid: id
+        }
     })
 
-    return purchaseBalance.revenue - sumBalance ;
+    return purchaseBalance.revenue - sumBalance;
 }
 
 async function getInfoById(id) {
 
     const query = await db.Purchase.findOne({
-        where : {
-            pid : id
+        where: {
+            pid: id
         },
-        include : [{
+        include: [{
             model: db.Customer,
             as: 'customerInfo',
             attributes: [
@@ -197,26 +199,26 @@ async function deleteItem(id) {
     return response;
 }
 
-async function updateCompleteStatus(id){
+async function updateCompleteStatus(id) {
 
     const query = await db.Purchase.findOne({
         where: {
-            pid : id
+            pid: id
         }
     })
 
     const update = await query.update({
-        status : "success",
+        status: "success",
         updatedDate: new Date()
     });
 
     return update;
 }
 
-async function countByStatus(status){
+async function countByStatus(status) {
     const response = await db.Purchase.count({
         where: {
-            status : status
+            status: status
         }
     })
 

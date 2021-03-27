@@ -78,6 +78,11 @@ module.exports = (sequelize,DataTypes) => {
             as:'saleInfo'
         });
 
+        model.hasMany(models.Logistic, {
+            foreignKey: 'pid',
+            onDelete: 'CASCADE',
+        });
+        
         model.belongsTo(models.Address, {
             as:'transportInfo',
             foreignKey: 'transport_location_id'

@@ -6,6 +6,15 @@ async function getAll() {
 
     return query;
 }
+
+async function insert(request) {
+
+    const response = await db.Transporter.create(request);
+
+    return response;
+}
+
 module.exports = {
-    getAll
+    getAll,
+    insert
 }

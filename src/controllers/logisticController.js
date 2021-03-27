@@ -47,9 +47,9 @@ async function updateLogisticTrans(req, res) {
 async function searchLogisticTrans(req, res) {
 
     try {
-
         const query = await logisticService.search({
                 lid: req.query.lid,
+                pid: req.query.pid,
                 inv : req.query.inv,
                 tid : req.query.tid,
                 status: req.query.status
