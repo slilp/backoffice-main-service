@@ -9,7 +9,7 @@ module.exports = (sequelize,DataTypes) => {
             type:DataTypes.STRING(50)
         },
         tid :{
-            type: DataTypes.STRING(50),
+            type: DataTypes.BIGINT(),
         },
         deliveryDate:{
             type: DataTypes.DATE,

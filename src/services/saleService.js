@@ -14,7 +14,19 @@ async function insert(request) {
     return response;
 }
 
+async function deleteItem(id) {
+
+    const response = await db.Sale.destroy({
+        where: {
+            sid: id
+        }
+    })
+
+    return response;
+}
+
 module.exports = {
     getAll,
-    insert
+    insert,
+    deleteItem
 }

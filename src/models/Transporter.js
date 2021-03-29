@@ -2,8 +2,12 @@ module.exports = (sequelize,DataTypes) => {
     const model = sequelize.define('Transporter',
     {
         tid : {
-            type: DataTypes.STRING(50),
+            type: DataTypes.BIGINT,
+            autoIncrement: true,
             primaryKey: true
+        },
+        title: {
+            type: DataTypes.STRING(30)
         },
         firstName: {
             type: DataTypes.STRING(150)

@@ -14,7 +14,20 @@ async function insert(request) {
     return response;
 }
 
+async function deleteItem(id) {
+
+    const response = await db.Transporter.destroy({
+        where: {
+            tid: id
+        }
+    })
+
+    return response;
+}
+
+
 module.exports = {
     getAll,
-    insert
+    insert,
+    deleteItem
 }
