@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         ref:{
             type:DataTypes.STRING(50)
         },
+        path:{
+            type:DataTypes.STRING(1000)
+        },
         order:{
             type: DataTypes.INTEGER,
         },

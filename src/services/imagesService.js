@@ -1,7 +1,9 @@
 const db = require("../models");
+const googleService = require("../services/googleService");
 const { Op } = require("sequelize");
 
 async function insert(request) {
+  
   const response = await db.Images.create(request);
 
   return response;
@@ -33,7 +35,11 @@ async function search(ref, type) {
 }
 
 async function getById(id) {
-  const query = await db.Images.findById(id);
+  const query = await db.Images.findOne({
+    where : {
+      imd : id
+    }
+  });
 
   return query;
 }

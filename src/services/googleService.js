@@ -1,49 +1,54 @@
-// const {format} = require('util');
-// const express = require('express');
-// const Multer = require('multer');
-// const bodyParser = require('body-parser');
+const { multer } = require('../middleware/melter');
+const {Storage} = require('@google-cloud/storage');
+const jsonkey = require('../../pfar-thai-3bb4464378ea.json');
+const {format} = require('util');
+const gc = new Storage({
+  credentials: jsonkey
+});
 
-// const {Storage} = require('@google-cloud/storage');
+const bucket = gc.bucket("pfar-thai");
 
-// // Instantiate a storage client
-// const storage = new Storage();
+async function uploadImage(file) {
 
-// // A bucket is a container for objects (files).
-// const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+    // if (!req.files || req.files.length == 0) {
+    //   return "";
+    // }
+  
+    // Create a new blob in the bucket and upload the file data.
+    const fileName = `${Date.now()}${file.originalname}`;
+    const blob = bucket.file(fileName);
 
-// // Display a form for uploading files.
-// app.get('/', (req, res) => {
-//   res.render('form.pug');
-// });
+    return new Promise((resolve,reject)=>{
+      const blobStream = blob.createWriteStream();
+  
+      blobStream.on('error', err => {
+        reject(error);
+      });
+      let publicUrl = "";
+      blobStream.on('finish', () => {
+        // The public URL can be used to directly access the file via HTTP.
+        publicUrl = format(
+          `https://storage.googleapis.com/${'pfar-thai'}/${blob.name}`
+        );
+        resolve(fileName);
+      });
+    
+      blobStream.end(file.buffer);
+  
+    });
+};
 
-// // Process the file upload and upload to Google Cloud Storage.
-// app.post('/upload', multer.single('file'), (req, res, next) => {
-//   if (!req.file) {
-//     res.status(400).send('No file uploaded.');
-//     return;
-//   }
+async function deleteImage(path){
 
-//   // Create a new blob in the bucket and upload the file data.
-//   const blob = bucket.file(req.file.originalname);
-//   const blobStream = blob.createWriteStream();
+  const blob = bucket.file(path);
 
-//   blobStream.on('error', err => {
-//     next(err);
-//   });
+  const result = await blob.delete();
 
-//   blobStream.on('finish', () => {
-//     // The public URL can be used to directly access the file via HTTP.
-//     const publicUrl = format(
-//       `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-//     );
-//     res.status(200).send(publicUrl);
-//   });
+  return  result;
+}
 
-//   blobStream.end(req.file.buffer);
-// });
 
-// const PORT = process.env.PORT || 8080;
-// app.listen(PORT, () => {
-//   console.log(`App listening on port ${PORT}`);
-//   console.log('Press Ctrl+C to quit.');
-// });
+module.exports = {
+    uploadImage,
+    deleteImage
+}

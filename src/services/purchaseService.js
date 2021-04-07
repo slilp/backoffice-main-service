@@ -75,10 +75,7 @@ async function searchWaitingTrans(request, index, size) {
                 } : {},
                 request.transportType ? {
                     transportType: request.transportType.trim()
-                } : {},
-                {
-                    status: 'waiting'
-                }
+                } : {}
             ]
         },
         attributes: [
