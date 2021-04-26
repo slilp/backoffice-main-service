@@ -13,12 +13,12 @@ async function search(ref, type) {
   const query = await db.Images.findAndCountAll({
     where: {
       [Op.and]: [
-        request.ref
+        ref
           ? {
               ref: ref,
             }
           : {},
-        request.type
+        type
           ? {
               type: type,
             }
@@ -26,8 +26,7 @@ async function search(ref, type) {
       ],
     },
     order: [
-      ["createdDate", "DESC"],
-      ["order", "ASC"],
+      ["createdDate", "DESC"]
     ],
   });
 

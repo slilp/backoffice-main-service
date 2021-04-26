@@ -15,7 +15,8 @@ async function uploadImage(file) {
     // }
   
     // Create a new blob in the bucket and upload the file data.
-    const fileName = `${Date.now()}${file.originalname}`;
+    const fileName = `${Date.now()}`;
+    // const fileName = `${Date.now()}${file.originalname}`;
     const blob = bucket.file(fileName);
 
     return new Promise((resolve,reject)=>{

@@ -26,7 +26,14 @@ async function insertImages(req, res) {
 async function getImages(req, res) {
   try {
     const query = await imagesService.search(req.query.ref, req.query.type);
-
+    
+    if(query.count != 0){
+      query.rows = query.rows.map( value => ({
+        imd :  value.imd,
+        path: `https://storage.googleapis.com/pfar-thai/${value.path}`
+      }));
+    }
+    
     return res.json({
       status: true,
       statusCode: "PFAR-200",
